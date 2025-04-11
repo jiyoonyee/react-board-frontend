@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import SubmitButton from "../atoms/SubmitButton";
+import SubmitButton from "./SubmitButton";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <>
       <Wrap>
+        <Link to={"/"}>MAIN</Link>
         <div>
           <SubmitButton buttonName={"로그인"}></SubmitButton>
           <SubmitButton buttonName={"회원가입"}></SubmitButton>
@@ -16,7 +18,7 @@ const Header = () => {
 
 const Wrap = styled.header`
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid;
   padding: 20px 30px;

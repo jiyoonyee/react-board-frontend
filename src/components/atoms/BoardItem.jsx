@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-const BoardItem = ({ id, title, write_day, writer }) => {
+const BoardItem = ({ id, title, write_day, writer, getBoardIdFunction }) => {
   return (
     <>
       <Wrap>
         <p>{id}</p>
-        <p>{title}</p>
+        <p onClick={getBoardIdFunction}>{title}</p>
         <p>{write_day.split("T")[0]}</p>
         <p>{writer}</p>
       </Wrap>
@@ -38,6 +39,7 @@ const Wrap = styled.div`
   & > p:nth-child(2) {
     width: 73%;
     justify-content: left;
+    cursor: pointer;
     @media (max-width: 1000px) {
       width: 78%;
     }

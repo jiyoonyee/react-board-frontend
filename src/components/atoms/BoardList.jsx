@@ -3,7 +3,7 @@ import BoardItem from "./BoardItem";
 import { useEffect, useState } from "react";
 import { use } from "react";
 
-const BoardList = () => {
+const BoardList = ({ getBoardIdFunction }) => {
   const [boardData, setBoardData] = useState([]);
 
   useEffect(() => {
@@ -39,6 +39,7 @@ const BoardList = () => {
         {boardData.length >= 0 &&
           boardData.map((item, index) => (
             <BoardItem
+              getBoardIdFunction={getBoardIdFunction}
               key={index}
               id={item.board_id}
               title={item.board_title}

@@ -1,21 +1,24 @@
-import styled from "styled-components";
 import Header from "./components/layout/Header";
 import MainPage from "./pages/mainPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import WritePage from "./pages/WritePage";
+import ContentPage from "./pages/ContentPage";
+import { useState } from "react";
 
 const App = () => {
+  const [selectedBoard, setSelectBoard] = useState(null);
   return (
     <>
-      <Wrap>
-        <Header></Header>
-        <MainPage></MainPage>
-      </Wrap>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route element={<MainPage />} path="/" />
+          <Route element={<WritePage />} path="/write" />
+          <Route element={<ContentPage />} path="/content" />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };
-
-const Wrap = styled.div`
-  width: 100%;
-  height: 100%;
-`;
 
 export default App;

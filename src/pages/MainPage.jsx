@@ -1,20 +1,48 @@
 import styled from "styled-components";
 import BoardList from "../components/atoms/BoardList";
-import CreateButton from "../components/atoms/CreateButton";
+import CreateButton from "../components/layout/CreateButton";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const MainPage = () => {
+  const [getId, setGetId] = useState("");
+
+  const navigate = useNavigate();
+
+  const viewContentsEvent = (e) => {
+    // console.log(e.target.parentNode.firstChild.textContent);
+    const sendId = e.target.parentNode.firstChild.textContent;
+    setGetId(e.target.parentNode.firstChild.textContent);
+    console.log(getId);
+    navigate("/content");
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/board_req?id=${sendId}`
+        );
+        const data = await response.json();
+        console.log(data);
+        setSelectBoard(data[0]);
+      } catch (error) {
+        console.error("에러:", error);
+      }
+    };
+    fetchData();
+  };
+
   return (
     <>
       <Wrap>
         <BoardMainContainer>
           <MainContentsWrap>
-            <BoardList />
+            <BoardList getBoardIdFunction={viewContentsEvent} />
           </MainContentsWrap>
           <BoardMenu>
             <div>1 / 2 / 3 / 4 / 5</div>
-            <div>
+            <Link to={"/write"}>
               <CreateButton buttonName={"글작성"} />
-            </div>
+            </Link>
           </BoardMenu>
         </BoardMainContainer>
       </Wrap>
@@ -37,7 +65,7 @@ const BoardMainContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 100px;
+  gap: 75px;
   @media (max-width: 1000px) {
     width: 90%;
   }
@@ -54,12 +82,12 @@ const BoardMenu = styled.div`
   align-items: center;
   position: relative;
 
-  & > div:nth-child(1) {
+  & > *:nth-child(1) {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
   }
-  & > div:nth-child(2) {
+  & > *:nth-child(2) {
     margin-left: auto;
   }
 `;
