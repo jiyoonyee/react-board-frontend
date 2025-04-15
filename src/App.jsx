@@ -6,14 +6,17 @@ import ContentPage from "./pages/ContentPage";
 import { useState } from "react";
 
 const App = () => {
-  const [selectedBoard, setSelectBoard] = useState(null);
   return (
     <>
       <BrowserRouter>
         <Header />
         <Routes>
           <Route element={<MainPage />} path="/" />
-          <Route element={<WritePage />} path="/write" />
+          <Route element={<WritePage updateState={false} />} path="/write" />
+          <Route
+            element={<WritePage updateState={true} />}
+            path="/writeUpdate"
+          />
           <Route element={<ContentPage />} path="/content" />
         </Routes>
       </BrowserRouter>

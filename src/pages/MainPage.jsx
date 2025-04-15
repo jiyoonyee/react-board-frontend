@@ -1,34 +1,17 @@
 import styled from "styled-components";
 import BoardList from "../components/atoms/BoardList";
 import CreateButton from "../components/layout/CreateButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const MainPage = () => {
-  const [getId, setGetId] = useState("");
+  // 메인 페이지에서 게시글 id값 가져오기 -> app.jsx로 넘기기 -> contents.jsx로 넘기기 -> contents.jsx에서 받아온 id값을 기반으로 api 호출
 
   const navigate = useNavigate();
 
   const viewContentsEvent = (e) => {
-    // console.log(e.target.parentNode.firstChild.textContent);
     const sendId = e.target.parentNode.firstChild.textContent;
-    setGetId(e.target.parentNode.firstChild.textContent);
-    console.log(getId);
-    navigate("/content");
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/board_req?id=${sendId}`
-        );
-        const data = await response.json();
-        console.log(data);
-        setSelectBoard(data[0]);
-      } catch (error) {
-        console.error("에러:", error);
-      }
-    };
-    fetchData();
+    navigate(`/content?index=${sendId}`);
   };
 
   return (

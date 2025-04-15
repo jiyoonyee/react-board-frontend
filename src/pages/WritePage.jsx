@@ -1,16 +1,19 @@
 import styled from "styled-components";
 import CreateButton from "../components/layout/CreateButton";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const testName = "tester";
 
-const WritePage = () => {
+const WritePage = ({ updateState = false }) => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const boardTitle = useRef(null);
   const boardContents = useRef(null);
-  const navigate = useNavigate(); // ✅ 추가
+  const navigate = useNavigate();
+  const index = searchParams.get("index");
 
   const changeTitle = (e) => {
     setTitle(e.target.value);
@@ -19,6 +22,28 @@ const WritePage = () => {
   const changeContents = (e) => {
     setContents(e.target.value);
   };
+
+  // 게시글 수정이면 아래에 api를 요청해 제목이랑 내용 가져오기
+  useEffect(() => {
+    if (updateState) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(
+            `http://localhost:3000/board_req?id=${index}`
+          );
+          const data = await response.json();
+          console.log(data[0]);
+          boardTitle.current.value = data[0].board_title;
+          boardContents.current.value = data[0].board_contents;
+          setTitle(data[0].board_title);
+          setContents(data[0].board_contents);
+        } catch (error) {
+          console.error("에러:", error);
+        }
+      };
+      fetchData();
+    }
+  }, []);
 
   const handleSubmit = async () => {
     if (!title.trim()) {
@@ -34,22 +59,35 @@ const WritePage = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/write", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          testName,
-          title,
-          contents,
-        }),
-      });
+      const response = await fetch(
+        `http://localhost:3000/${updateState ? "update" : "write"}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(
+            updateState
+              ? {
+                  index,
+                  title,
+                  contents,
+                }
+              : {
+                  testName,
+                  title,
+                  contents,
+                }
+          ),
+        }
+      );
 
       const result = await response.json();
 
       if (response.ok && result.success) {
-        alert("게시글이 등록되었습니다!");
+        alert(
+          updateState ? "게시글이 수정되었습니다." : "게시글이 등록되었습니다!"
+        );
 
         // ✅ 초기화
         setTitle("");
@@ -58,10 +96,11 @@ const WritePage = () => {
         if (boardContents.current) boardContents.current.value = "";
 
         // ✅ 성공한 경우에만 페이지 이동
-        navigate("/");
+        navigate(updateState ? `/content?index=${index}` : "/");
+        console.log(result.message);
       } else {
         // 실패했을 때 서버 메시지 출력
-        alert(result.message || "등록 실패");
+        alert(result.message);
       }
     } catch (error) {
       console.error("에러 발생:", error.message);
@@ -87,7 +126,10 @@ const WritePage = () => {
           onChange={changeContents}
         />
         <WriteMenu>
-          <CreateButton buttonName={"등록"} clickEvent={handleSubmit} />
+          <CreateButton
+            buttonName={updateState ? "수정" : "등록"}
+            clickEvent={handleSubmit}
+          />
         </WriteMenu>
       </BoardMainContainer>
     </Wrap>
