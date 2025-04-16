@@ -1,5 +1,5 @@
 import Header from "./components/layout/Header";
-import MainPage from "./pages/mainPage";
+import MainPage from "./pages/MainPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import WritePage from "./pages/WritePage";
 import ContentPage from "./pages/ContentPage";
