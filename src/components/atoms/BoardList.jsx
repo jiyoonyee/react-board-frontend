@@ -9,7 +9,9 @@ const BoardList = ({ getBoardIdFunction }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/databases");
+        const response = await fetch(
+          "https://react-board-backend.vercel.app/databases"
+        );
         const data = await response.json();
         setBoardData(data);
       } catch (error) {
