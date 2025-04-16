@@ -29,7 +29,7 @@ const WritePage = ({ updateState = false }) => {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            `http://localhost:3000/board_req?id=${index}`
+            `http://localhost:3000/board_req?index=${index}`
           );
           const data = await response.json();
           console.log(data[0]);
