@@ -15,7 +15,7 @@ const ContentPage = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/board_req?index=${index}`
+          `https://react-board-backend.vercel.app/board_req?index=${index}`
         );
         const data = await response.json();
         setContentData(data[0]);
@@ -34,13 +34,16 @@ const ContentPage = () => {
   const deleteBoardItem = () => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/delete`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ index: index }),
-        });
+        const response = await fetch(
+          `https://react-board-backend.vercel.app/delete`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ index: index }),
+          }
+        );
         const data = await response.json();
         alert("삭제가 성공적으로 이루어졌습니다.");
         navigate("/");

@@ -29,7 +29,7 @@ const WritePage = ({ updateState = false }) => {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            `http://localhost:3000/board_req?index=${index}`
+            `https://react-board-backend.vercel.app/board_req?index=${index}`
           );
           const data = await response.json();
           console.log(data[0]);
@@ -60,7 +60,9 @@ const WritePage = ({ updateState = false }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/${updateState ? "update" : "write"}`,
+        `https://react-board-backend.vercel.app/${
+          updateState ? "update" : "write"
+        }`,
         {
           method: "POST",
           headers: {
