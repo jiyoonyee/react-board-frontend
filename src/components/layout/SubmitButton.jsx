@@ -15,12 +15,15 @@ const Wrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   & > a {
     background-color: white;
     border-radius: 1000px;
     border: 1px solid black;
     font-size: 15px;
     padding: 10px 15px;
+    text-align: center;
+    word-break: keep-all;
     cursor: pointer;
   }
 `;

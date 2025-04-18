@@ -37,18 +37,19 @@ const BoardList = ({ getBoardIdFunction }) => {
           <p>작성시간</p>
           <p>작성자</p>
         </ListRow>
-
-        {boardData.length >= 0 &&
-          boardData.map((item, index) => (
-            <BoardItem
-              getBoardIdFunction={getBoardIdFunction}
-              key={index}
-              id={item.board_id}
-              title={item.board_title}
-              write_day={item.board_write_day}
-              writer={item.board_writer}
-            />
-          ))}
+        <ListItemWrap>
+          {boardData.length >= 0 &&
+            boardData.map((item, index) => (
+              <BoardItem
+                getBoardIdFunction={getBoardIdFunction}
+                key={index}
+                id={item.board_id}
+                title={item.board_title}
+                write_day={item.board_write_day}
+                writer={item.board_writer}
+              />
+            ))}
+        </ListItemWrap>
       </Wrap>
     </>
   );
@@ -56,11 +57,19 @@ const BoardList = ({ getBoardIdFunction }) => {
 
 const Wrap = styled.div`
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+`;
+
+const ListItemWrap = styled.div`
+  width: 100%;
+  overflow-y: scroll;
+  max-height: 600px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ListRow = styled.div`

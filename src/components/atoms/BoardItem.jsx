@@ -20,6 +20,10 @@ const Wrap = styled.div`
   align-items: center;
   font-size: 1em;
   border-bottom: 1px solid black;
+  transition: 0.2s all ease-in-out;
+  &:hover {
+    background-color: aliceblue;
+  }
   & > p {
     display: flex;
     justify-content: center;
