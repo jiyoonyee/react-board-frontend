@@ -100,7 +100,7 @@ const WritePage = ({ updateState, username }) => {
                   contents,
                 }
               : {
-                  testName,
+                  username,
                   title,
                   contents,
                 }
