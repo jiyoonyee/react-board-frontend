@@ -1,11 +1,43 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const SubmitButton = ({ buttonName }) => {
+const SubmitButton = ({
+  buttonName,
+  linkName,
+  updateLoginState,
+  updateUserId,
+}) => {
+  const updatelogin = () => {
+    if (updateLoginState) {
+      const fetchData = async () => {
+        try {
+          const response = await fetch("http://localhost:3000/auth/logout", {
+            method: "POST",
+            credentials: "include",
+          });
+          const data = await response.json();
+          alert(data.message);
+        } catch (error) {
+          console.error("데이터 불러오기 실패:", error);
+        }
+      };
+
+      fetchData();
+
+      // updateLoginState();
+      // updateUserId("");
+
+      // alert("성공적으로 로그아웃 되었습니다.");
+      window.location.reload();
+    }
+  };
+
   return (
     <>
       <Wrap>
-        <Link>{buttonName}</Link>
+        <Link onClick={updatelogin} to={`/${linkName}`}>
+          {buttonName}
+        </Link>
       </Wrap>
     </>
   );

@@ -5,7 +5,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const testName = "tester";
 
-const WritePage = ({ updateState = false }) => {
+const WritePage = ({ updateState, username }) => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,7 +29,7 @@ const WritePage = ({ updateState = false }) => {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            `https://react-board-backend.vercel.app/board_req?index=${index}`
+            `http://localhost:3000/board_req?index=${index}`
           );
           const data = await response.json();
           console.log(data[0]);
@@ -60,9 +60,7 @@ const WritePage = ({ updateState = false }) => {
 
     try {
       const response = await fetch(
-        `https://react-board-backend.vercel.app/${
-          updateState ? "update" : "write"
-        }`,
+        `http://localhost:3000/${updateState ? "update" : "write"}`,
         {
           method: "POST",
           headers: {
@@ -76,13 +74,38 @@ const WritePage = ({ updateState = false }) => {
                   contents,
                 }
               : {
-                  testName,
+                  username,
                   title,
                   contents,
                 }
           ),
         }
       );
+      // 서버 연결(vercel)
+      // const response = await fetch(
+      //   `https://react-board-backend.vercel.app/${
+      //     updateState ? "update" : "write"
+      //   }`,
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(
+      //       updateState
+      //         ? {
+      //             index,
+      //             title,
+      //             contents,
+      //           }
+      //         : {
+      //             testName,
+      //             title,
+      //             contents,
+      //           }
+      //     ),
+      //   }
+      // );
 
       const result = await response.json();
 

@@ -4,7 +4,7 @@ import CreateButton from "../components/layout/CreateButton";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const MainPage = () => {
+const MainPage = ({ loginState }) => {
   // 메인 페이지에서 게시글 id값 가져오기 -> app.jsx로 넘기기 -> contents.jsx로 넘기기 -> contents.jsx에서 받아온 id값을 기반으로 api 호출
 
   const navigate = useNavigate();
@@ -14,6 +14,14 @@ const MainPage = () => {
     navigate(`/content?index=${sendId}`);
   };
 
+  const loginCheckHandle = () => {
+    if (!loginState) {
+      alert("로그인이 되어 있지 않습니다. 로그인 창으로 이동합니다.");
+      navigate("/login");
+    } else {
+      navigate("/write");
+    }
+  };
   return (
     <>
       <Wrap>
@@ -22,10 +30,7 @@ const MainPage = () => {
             <BoardList getBoardIdFunction={viewContentsEvent} />
           </MainContentsWrap>
           <BoardMenu>
-            <div>1 / 2 / 3 / 4 / 5</div>
-            <Link to={"/write"}>
-              <CreateButton buttonName={"글작성"} />
-            </Link>
+            <CreateButton clickEvent={loginCheckHandle} buttonName={"글작성"} />
           </BoardMenu>
         </BoardMainContainer>
       </Wrap>
@@ -39,7 +44,10 @@ const Wrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 80px;
+  padding: 80px 0px 20px;
+  @media (max-width: 1000px) {
+    padding-top: 20px;
+  }
 `;
 
 const BoardMainContainer = styled.div`
@@ -51,6 +59,7 @@ const BoardMainContainer = styled.div`
   gap: 75px;
   @media (max-width: 1000px) {
     width: 90%;
+    gap: 30px;
   }
 `;
 
@@ -61,18 +70,9 @@ const MainContentsWrap = styled.div`
 const BoardMenu = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
   position: relative;
-
-  & > *:nth-child(1) {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  & > *:nth-child(2) {
-    margin-left: auto;
-  }
 `;
 
 export default MainPage;
