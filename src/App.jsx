@@ -12,10 +12,13 @@ const App = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/auth/check", {
-        method: "GET",
-        credentials: "include",
-      });
+      const response = await fetch(
+        "https://react-board-backend.vercel.app/auth/check",
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
       const data = await response.json();
       if (data.loggedIn) {
         setLoginState(data.loggedIn);
