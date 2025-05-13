@@ -45,7 +45,9 @@ const LoginPage = ({ pageState, updateUserId, updateLoginState }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/auth/${pageState ? "login" : "signup"}`,
+        `https://react-board-backend.vercel.app/auth/${
+          pageState ? "login" : "signup"
+        }`,
         {
           method: "POST",
           headers: {
