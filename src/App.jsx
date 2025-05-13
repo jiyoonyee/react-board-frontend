@@ -7,30 +7,35 @@ import { useEffect, useState } from "react";
 import LoginPage from "./pages/LoginPage";
 
 const App = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [loginState, setLoginState] = useState(false);
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        "https://react-board-backend.vercel.app/auth/check",
-        {
-          method: "GET",
-          credentials: "include",
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://react-board-backend.onrender.com/auth/check",
+          {
+            method: "GET",
+            credentials: "include", // 세션 쿠키 포함
+          }
+        );
+        const data = await response.json();
+        if (data.loggedIn) {
+          setLoginState(true);
+          setUser(data.user);
+        } else {
+          setLoginState(false);
+          setUser(null);
         }
-      );
-      const data = await response.json();
-      if (data.loggedIn) {
-        setLoginState(data.loggedIn);
-        setUser(data.user);
+        console.log("세션 확인 결과:", data);
+      } catch (error) {
+        console.error("세션 정보 불러오기 실패:", error);
       }
-      console.log("데이터 요청", data);
-    } catch (error) {
-      console.error("데이터 불러오기 실패:", error);
-    }
-  };
+    };
 
-  fetchData();
+    fetchData(); // ✅ useEffect 안에서 한 번만 실행됨
+  }, []);
 
   const updateLoginState = () => {
     setLoginState(!loginState);
