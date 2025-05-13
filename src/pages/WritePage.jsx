@@ -91,6 +91,7 @@ const WritePage = ({ updateState, username }) => {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify(
             updateState
               ? {
