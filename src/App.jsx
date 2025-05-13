@@ -10,32 +10,30 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [loginState, setLoginState] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://react-board-backend.onrender.com/auth/check",
-          {
-            method: "GET",
-            credentials: "include", // 세션 쿠키 포함
-          }
-        );
-        const data = await response.json();
-        if (data.loggedIn) {
-          setLoginState(true);
-          setUser(data.user);
-        } else {
-          setLoginState(false);
-          setUser(null);
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "https://react-board-backend.onrender.com/auth/check",
+        {
+          method: "GET",
+          credentials: "include", // 세션 쿠키 포함
         }
-        console.log("세션 확인 결과:", data);
-      } catch (error) {
-        console.error("세션 정보 불러오기 실패:", error);
+      );
+      const data = await response.json();
+      if (data.loggedIn) {
+        setLoginState(true);
+        setUser(data.user);
+      } else {
+        setLoginState(false);
+        setUser(null);
       }
-    };
+      console.log("세션 확인 결과:", data);
+    } catch (error) {
+      console.error("세션 정보 불러오기 실패:", error);
+    }
+  };
 
-    fetchData();
-  }, []);
+  fetchData();
 
   const updateLoginState = () => {
     setLoginState(!loginState);
