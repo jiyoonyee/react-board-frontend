@@ -14,7 +14,7 @@ const App = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://react-board-backend.onrender.com/auth/check",
+          "https://react-board-backend.vercel.app/auth/check",
           {
             method: "GET",
             credentials: "include", // 세션 쿠키 포함
