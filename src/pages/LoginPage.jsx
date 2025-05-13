@@ -45,16 +45,16 @@ const LoginPage = ({ pageState, updateUserId, updateLoginState }) => {
 
     try {
       const response = await fetch(
-        `https://react-board-backend.vercel.app/auth/${
+        `https://react-board-backend.onrender.com/auth/${
           pageState ? "login" : "signup"
         }`,
         {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
 
-          credentials: "include",
           body: JSON.stringify(
             pageState
               ? {

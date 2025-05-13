@@ -29,7 +29,7 @@ const WritePage = ({ updateState, username }) => {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            `https://react-board-backend.vercel.app/board_req?index=${index}`
+            `https://react-board-backend.onrender.com/board_req?index=${index}`
           );
           const data = await response.json();
           console.log(data[0]);
@@ -83,7 +83,7 @@ const WritePage = ({ updateState, username }) => {
       // );
       // 서버 연결(vercel)
       const response = await fetch(
-        `https://react-board-backend.vercel.app/${
+        `https://react-board-backend.onrender.com/${
           updateState ? "update" : "write"
         }`,
         {

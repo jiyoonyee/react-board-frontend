@@ -15,7 +15,7 @@ const ContentPage = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://react-board-backend.vercel.app/board_req?index=${index}`
+          `https://react-board-backend.onrender.com/board_req?index=${index}`
         );
         const data = await response.json();
         setContentData(data[0]);
@@ -35,7 +35,7 @@ const ContentPage = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://react-board-backend.vercel.app/delete`,
+          `https://react-board-backend.onrender.com/delete`,
           {
             method: "POST",
             headers: {

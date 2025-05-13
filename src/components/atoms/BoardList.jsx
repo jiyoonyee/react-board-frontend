@@ -10,7 +10,7 @@ const BoardList = ({ getBoardIdFunction }) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://react-board-backend.vercel.app/databases",
+          "https://react-board-backend.onrender.com/databases",
           {
             method: "GET",
             headers: {

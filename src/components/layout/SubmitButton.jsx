@@ -12,7 +12,7 @@ const SubmitButton = ({
       const fetchData = async () => {
         try {
           const response = await fetch(
-            "https://react-board-backend.vercel.app/auth/logout",
+            "https://react-board-backend.onrender.com/auth/logout",
             {
               method: "POST",
               credentials: "include",
