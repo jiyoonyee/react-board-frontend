@@ -4,7 +4,7 @@ import WritePage from "./pages/WritePage";
 import ContentPage from "./pages/ContentPage";
 import { useEffect, useState } from "react";
 import LoginPage from "./pages/LoginPage";
-import MainPage from "./pages/mainPage";
+import MainPage from "./pages/MainPage";
 
 const App = () => {
   const [user, setUser] = useState(null);
