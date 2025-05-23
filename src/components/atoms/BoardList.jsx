@@ -9,13 +9,16 @@ const BoardList = ({ getBoardIdFunction }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://3.36.66.10:3000/databases", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        });
+        const response = await fetch(
+          "https://react-board-backend.onrender.com/databases",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
         const data = await response.json();
         setBoardData(data);
       } catch (error) {
