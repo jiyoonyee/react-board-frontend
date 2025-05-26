@@ -83,9 +83,7 @@ const WritePage = ({ updateState, username }) => {
       // );
       // 서버 연결(vercel)
       const response = await fetch(
-        `https://react-board-backend.onrender.com/${
-          updateState ? "update" : "write"
-        }`,
+        `http://3.36.66.10:3000/${updateState ? "update" : "write"}`,
         {
           method: "POST",
           headers: {
