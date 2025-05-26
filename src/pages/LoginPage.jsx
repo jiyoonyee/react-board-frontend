@@ -45,9 +45,7 @@ const LoginPage = ({ pageState, updateUserId, updateLoginState }) => {
 
     try {
       const response = await fetch(
-        `https://react-board-backend.onrender.com/auth/${
-          pageState ? "login" : "signup"
-        }`,
+        `http://3.36.66.10:3000/auth/${pageState ? "login" : "signup"}`,
         {
           method: "POST",
           credentials: "include",

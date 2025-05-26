@@ -11,13 +11,10 @@ const SubmitButton = ({
     if (updateLoginState) {
       const fetchData = async () => {
         try {
-          const response = await fetch(
-            "https://react-board-backend.onrender.com/auth/logout",
-            {
-              method: "POST",
-              credentials: "include",
-            }
-          );
+          const response = await fetch("http://3.36.66.10:3000/auth/logout", {
+            method: "POST",
+            credentials: "include",
+          });
           const data = await response.json();
           alert(data.message);
         } catch (error) {

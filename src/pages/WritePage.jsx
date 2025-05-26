@@ -29,7 +29,7 @@ const WritePage = ({ updateState, username }) => {
       const fetchData = async () => {
         try {
           const response = await fetch(
-            `https://react-board-backend.onrender.com/board_req?index=${index}`
+            `http://3.36.66.10:3000/board_req?index=${index}`
           );
           const data = await response.json();
           console.log(data[0]);

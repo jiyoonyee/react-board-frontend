@@ -13,13 +13,10 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://react-board-backend.onrender.com/auth/check",
-          {
-            method: "GET",
-            credentials: "include", // 세션 쿠키 포함
-          }
-        );
+        const response = await fetch("http://3.36.66.10:3000/auth/check", {
+          method: "GET",
+          credentials: "include", // 세션 쿠키 포함
+        });
         const data = await response.json();
         if (data.loggedIn) {
           setLoginState(true);
