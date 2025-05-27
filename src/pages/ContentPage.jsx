@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import CreateButton from "../components/layout/CreateButton";
+import { decode } from "he";
 
 const ContentPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -58,7 +59,7 @@ const ContentPage = () => {
           <BoardMainContainer>
             <BoardInforWrap>
               <BoardTitle>
-                <span>{contentData.board_title}</span>
+                <span>{decode(contentData.board_title)}</span>
               </BoardTitle>
               <BoardDetailsWrap>
                 <BoardWriter>{contentData.board_writer}</BoardWriter>
@@ -66,7 +67,7 @@ const ContentPage = () => {
               </BoardDetailsWrap>
             </BoardInforWrap>
             <BoardContentWrap>
-              <BoardContent>{contentData.board_contents}</BoardContent>
+              <BoardContent>{decode(contentData.board_contents)}</BoardContent>
             </BoardContentWrap>
           </BoardMainContainer>
         ) : (

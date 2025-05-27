@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { decode } from "he";
 
 const BoardItem = ({ id, title, write_day, writer, getBoardIdFunction }) => {
+  console.log(id);
   return (
     <>
       <Wrap>
         <p>{id}</p>
-        <p onClick={getBoardIdFunction}>{title}</p>
+        <p onClick={getBoardIdFunction}>{decode(title)}</p>
         <p>{write_day.split("T")[0]}</p>
         <p>{writer}</p>
       </Wrap>

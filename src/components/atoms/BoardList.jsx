@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import BoardItem from "./BoardItem";
 import { useEffect, useState } from "react";
-import { use } from "react";
+import { decode } from "he";
 
 const BoardList = ({ getBoardIdFunction }) => {
   const [boardData, setBoardData] = useState([]);

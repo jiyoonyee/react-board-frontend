@@ -3,8 +3,6 @@ import CreateButton from "../components/layout/CreateButton";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-const testName = "tester";
-
 const WritePage = ({ updateState, username }) => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
@@ -21,6 +19,16 @@ const WritePage = ({ updateState, username }) => {
 
   const changeContents = (e) => {
     setContents(e.target.value);
+  };
+
+  // 작성한 글을 테이블에 추가가
+  const escapeHTML = (str) => {
+    return str
+      .replace(/&/g, "&amp;") // & 먼저!
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
   };
 
   // 게시글 수정이면 아래에 api를 요청해 제목이랑 내용 가져오기
@@ -58,30 +66,10 @@ const WritePage = ({ updateState, username }) => {
       return;
     }
 
+    setTitle(escapeHTML(title));
+    setContents(escapeHTML(contents));
+
     try {
-      // const response = await fetch(
-      //   `http://localhost:3000/${updateState ? "update" : "write"}`,
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(
-      //       updateState
-      //         ? {
-      //             index,
-      //             title,
-      //             contents,
-      //           }
-      //         : {
-      //             username,
-      //             title,
-      //             contents,
-      //           }
-      //     ),
-      //   }
-      // );
-      // 서버 연결(vercel)
       const response = await fetch(
         `http://3.36.66.10:3000/${updateState ? "update" : "write"}`,
         {
@@ -113,6 +101,7 @@ const WritePage = ({ updateState, username }) => {
           updateState ? "게시글이 수정되었습니다." : "게시글이 등록되었습니다!"
         );
 
+        console.log(title + "\n" + contents);
         // ✅ 초기화
         setTitle("");
         setContents("");
@@ -128,6 +117,7 @@ const WritePage = ({ updateState, username }) => {
       }
     } catch (error) {
       console.error("에러 발생:", error.message);
+      console.log(title + "\n" + contents);
       alert("게시글 등록 중 오류가 발생했습니다.");
     }
   };
